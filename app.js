@@ -1,7 +1,7 @@
 "use strict";
 
 function init() {
-	Homey.log("com.devolo running...");
+	Homey.log("com.devolo.radiator running...");
 }
 
 module.exports.init = init;
