@@ -1,0 +1,21 @@
+{
+  "name": "com.devolo",
+  "version": "1.0.0",
+  "description": "This app adds support for Devolo devices in Homey. At this moment only the Home Control Radiator Thermostat is included.",
+  "main": "app.js",
+  "dependencies": {
+    "homey-zwavedriver": "git+https://github.com/athombv/node-homey-zwavedriver.git",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michelderu/com.devolo.git"
+  },
+  "author": "Michel de Ru",
+  "license": "ISC",
+  "homepage": "https://github.com/michelderu/com.devolo"
+}

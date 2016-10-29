@@ -1,2 +1,2 @@
-# com.devolo.radiator
-Homey driver for Devolo Home Control Radiator Thermostat
+# com.devolo
+Devolo radiator thermostat for Homey (Athom BV)
