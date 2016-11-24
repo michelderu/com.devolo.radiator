@@ -32,7 +32,8 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 				var batt_level = report['Battery Level (Raw)'][0];
 				// 0xFF is a special value to indicate the battery is low
 				return (batt_level == 0xFF) ? 1 : batt_level;
-			}
+			},
+			pollInterval: 300
 		},
 		
 		measure_temperature: {
@@ -51,7 +52,8 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 			command_report: 'SENSOR_MULTILEVEL_REPORT',
 			command_report_parser: report => {
 				return Math.round (report['Sensor Value (Parsed)'] * 10) / 10;
-			}
+			},
+			pollInterval: 300
 		},
 		
 		target_temperature: {
@@ -91,7 +93,8 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 					'Level2': new Buffer([34]), // Precision = 1 (bits: 001), Scale = 0 (bits: 00), Size = 2 (bits: 010)
 					'Value': temp
 				};
-			}
+			},
+			pollInterval: 300
 		}
 	}
 });
