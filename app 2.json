@@ -1,7 +1,7 @@
 {
     "id": "com.devolo",
     "version": "1.0.0",
-    "compatibility": ">=1.0.0",
+    "compatibility": ">=0.10.7",
 	"name": {
 		"en": "Devolo",
 		"nl": "Devolo"
@@ -57,7 +57,26 @@
 			"images": {
 				"small": "drivers/014G0801/assets/images/small.png",
 				"large": "drivers/014G0801/assets/images/large.png"
-			}
+			},
+			"settings": [
+				{
+					"id": "poll_interval",
+					"type": "number",
+					"attr": {
+						"min": 60,
+						"max": 3600
+					},
+					"value": 60,
+					"label": {
+						"en": "Poll Interval",
+						"nl": "Poll Interval"
+					},
+					"hint": {
+						"en": "The amount of seconds between asking the device for a status update",
+						"nl": "Aantal seconden tussen het opvragen van een status update aan het apparaat"
+					}
+				}
+			]
 		}
 	]
 }

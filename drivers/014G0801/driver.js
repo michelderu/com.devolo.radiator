@@ -3,6 +3,7 @@
 const path = require('path');
 const ZwaveDriver = require('homey-zwavedriver');
 
+// http://www.vesternet.com/downloads/dl/file/id/196/z_wave_danfoss_lc_13_living_connect_radiator_thermostat_manual.pdf
 // http://www.devolo.co.uk/fileadmin/user_upload/Products/devolo-Home-Control-Radiator-Control/Documents/PDF_en/Manual-devolo-Home-Control-Radiator-Thermostat-com.pdf
 // http://products.z-wavealliance.org/products/1258/embedpics
 // http://heating.danfoss.com/PCMPDF/Z_wave_commands_VDFNN202_teamcent.pdf
@@ -11,7 +12,7 @@ const ZwaveDriver = require('homey-zwavedriver');
 module.exports = new ZwaveDriver(path.basename(__dirname), {
 	debug: true,
 	capabilities: {
-		measure_battery: {
+		measure_battery: {			
 			// http://z-wave.sigmadesigns.com/wp-content/uploads/2016/08/SDS12657-12-Z-Wave-Command-Class-Specification-A-M.pdf, page 125
 			// 
 			// The Battery Level Get Command is used to request the level of a battery.
@@ -26,6 +27,8 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 			command_get: 'BATTERY_GET',
 			command_report: 'BATTERY_REPORT',
 			command_report_parser: report => {
+
+				Homey.log("WAKEUP" + wakeUpInterval);
 				var batt_level = report['Battery Level (Raw)'][0];
 				// 0xFF is a special value to indicate the battery is low
 				return (batt_level == 0xFF) ? 1 : batt_level;
