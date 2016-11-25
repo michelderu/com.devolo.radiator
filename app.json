@@ -1,7 +1,7 @@
 {
     "id": "com.devolo",
     "version": "1.0.0",
-    "compatibility": ">=1.0.0",
+    "compatibility": ">=1.0.2",
 	"name": {
 		"en": "Devolo",
 		"nl": "Devolo"

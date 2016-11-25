@@ -3,6 +3,12 @@
 const path = require('path');
 const ZwaveDriver = require('homey-zwavedriver');
 
+// Get the driver object
+var driver = findWhere(Homey.manifest.drivers, { id: path.basename(__dirname) });
+// Get the wakeUpInterval from the driver object (in order to set the pollInterval to the same value)
+var wakeUpInterval = driver.zwave.wakeUpInterval * 1000;
+Homey.log("Will set pollInterval to the same value as wakeUpInterval, which is: " + wakeUpInterval + " ms");
+
 // http://www.vesternet.com/downloads/dl/file/id/196/z_wave_danfoss_lc_13_living_connect_radiator_thermostat_manual.pdf
 // http://www.devolo.co.uk/fileadmin/user_upload/Products/devolo-Home-Control-Radiator-Control/Documents/PDF_en/Manual-devolo-Home-Control-Radiator-Thermostat-com.pdf
 // http://products.z-wavealliance.org/products/1258/embedpics
@@ -27,13 +33,11 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 			command_get: 'BATTERY_GET',
 			command_report: 'BATTERY_REPORT',
 			command_report_parser: report => {
-
-				Homey.log("WAKEUP" + wakeUpInterval);
 				var batt_level = report['Battery Level (Raw)'][0];
 				// 0xFF is a special value to indicate the battery is low
 				return (batt_level == 0xFF) ? 1 : batt_level;
 			},
-			pollInterval: 300
+			pollInterval: wakeUpInterval
 		},
 		
 		measure_temperature: {
@@ -53,7 +57,7 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 			command_report_parser: report => {
 				return Math.round (report['Sensor Value (Parsed)'] * 10) / 10;
 			},
-			pollInterval: 300
+			pollInterval: wakeUpInterval
 		},
 		
 		target_temperature: {
@@ -94,7 +98,17 @@ module.exports = new ZwaveDriver(path.basename(__dirname), {
 					'Value': temp
 				};
 			},
-			pollInterval: 300
+			pollInterval: wakeUpInterval
 		}
 	}
 });
+
+/**
+ * Plain js implementation of underscore's findWhere.
+ * @param array
+ * @param criteria
+ * @returns {*}
+ */
+function findWhere(array, criteria) {
+	return array.find(item => Object.keys(criteria).every(key => item[key] === criteria[key]));
+}

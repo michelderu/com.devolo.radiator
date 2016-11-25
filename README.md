@@ -10,4 +10,5 @@ Install athom CLI tool. Check out: https://forum.athom.com/discussion/1448/how-t
 
 Install the driver
 
+`cd com.devolo.radiator`
 `athom project --install`
